@@ -1,0 +1,320 @@
+<html>
+<head><meta name="author" content="Created with Hot Potatoes by Half-Baked Software, registered to Dora Pozzi."></meta><meta name="keywords" content="Hot Potatoes, Half-Baked Software, Windows, University of Victoria"></meta>
+<title>
+Personal pronouns, 2
+</title>
+
+<script language="javascript" type="text/javascript">
+
+//<![CDATA[
+
+<!--
+
+// BrowserCheck Object
+
+function BrowserCheck() {
+	var b = navigator.appName
+//HBS extension
+	this.mac = (navigator.appVersion.indexOf('Mac') != -1)
+	if (b=="Netscape") this.b = "ns"
+	else if (b=="Microsoft Internet Explorer") this.b = "ie"
+	else this.b = b
+	this.version = navigator.appVersion
+	this.v = parseInt(this.version)
+	this.ns = (this.b=="ns" && this.v>=4)
+	this.ns4 = (this.b=="ns" && this.v==4)
+	this.ns5 = (this.b=="ns" && this.v==5)
+	this.ie = (this.b=="ie" && this.v>=4)
+	this.ie4 = (this.version.indexOf('MSIE 4')>0)
+	this.ie5 = (this.version.indexOf('MSIE 5')>0)
+	this.min = (this.ns||this.ie)
+	this.CRAPBrowser = (this.ie && this.mac); //Cannot Resolve Addresses Properly
+}
+
+is = new BrowserCheck();
+
+var LocFolder = GetFolder(window.location.href);
+function GetFolder(LocPath){
+	LocPath = ReplaceStuff('\'','%27',LocPath);
+	var i = LocPath.lastIndexOf('/');
+	if (i<0){i=LocPath.lastIndexOf('\\')};
+	return LocPath.substring(0,i);
+}
+
+function CombineURLs(InURL){
+	var i = InURL.indexOf('../');
+	var s = LocFolder;
+	while (i >- 1){
+		s = GetFolder(s);
+		InURL = InURL.substring(3,InURL.length);
+		i = InURL.indexOf('../');
+	}
+	return s + '/' + InURL;
+}
+
+x = new Array();
+function ResolveURLs(InText,Attribute){
+	x.length=0;
+	var Temp = InText.toLowerCase();
+	var z;
+	var AttLen = Attribute.length + 2;
+	var y=Temp.lastIndexOf(Attribute + '="');
+	while (y>-1){
+		var sLoc = y+AttLen;
+		if (Temp.substring(sLoc,sLoc+5) != 'http:'){
+			x[x.length]=new Array();
+			x[x.length-1][0] = sLoc;
+			z = Temp.indexOf('"',sLoc);
+			x[x.length-1][1] = z;
+			x[x.length-1][2] = Temp.substring(sLoc,z);
+		}
+		Temp = Temp.substring(0,y);
+		y=Temp.lastIndexOf(Attribute + '="');
+	}
+	for (var j=x.length-1; j>-1; j--){
+		InText = InText.substring(0,x[j][0]) + CombineURLs(x[j][2]) + InText.substring(x[j][1], InText.length);
+	}
+	return InText;
+}
+
+function ResolveAllURLs(Stuff){
+	Stuff = ResolveURLs(Stuff,'href');
+	Stuff = ResolveURLs(Stuff,'src');
+	Stuff = ResolveURLs(Stuff,'parent.location');
+	return Stuff;
+}
+
+var ExerciseTitle = 'Personal pronouns, 2';
+var ExerciseSubtitle = '<b>Flash cards.';
+var Instructions = '<b>Click on the asterisk to call up the first card.  Translate it on paper and then click on the asterisk again to "turn the card over" and check your answer.  Clicking on the X shows in a sequence all the Greek forms or all the English forms.';
+
+var PreviousPage = history.length;
+
+var NavBar='';
+
+
+NavBar+='<tr><form name="NavButtons1" action=""><td bgcolor="#000066" align="center">';
+NavBar+='<font face="Geneva,Arial" size="-1">';
+
+NavBar+='<input type="button" value="&lt;=" onclick="parent.GoBack()"></input>';
+
+
+
+NavBar+='</font></td></form></tr>';
+
+
+var TitleCode = '<tr><td colspan="2" align="center" valign="top" bgcolor="#ffffff">';
+TitleCode += '<font size="+1" face="Geneva,Arial" color="#000033">' + ExerciseTitle + '</font><br />';
+TitleCode += '<font size="-1" face="Geneva,Arial" color="#000033">' + ExerciseSubtitle + '<br />';
+TitleCode += '</font></td></tr>';
+
+var FlashButton = '<tr><form name="Flashcard" action="">';
+FlashButton += '<td align="center" valign="middle"><font face="Geneva,Arial" size="-1">';
+FlashButton += '<input type="button" name="Flash" value="  [ * ]  " onclick="parent.ShowItem()"></input>';
+FlashButton += '<input type="button" name="Delete" value="  [ X ]  " onclick="parent.DeleteItem()"></input>';
+FlashButton += '</td></form></tr>';
+
+var CurrItem = 0;
+var Stage = 1;
+
+var CellOpener = '<td valign="middle" align="center" width="50%" bgcolor="#bbbbee"><font face="Geneva,Arial" size="+2">';
+var CellCloser = '</font></td>';
+
+function GoBack(){
+	var BackSkip = history.length - PreviousPage;
+	if (BackSkip > 0){
+		history.go((BackSkip+1)*-1);
+	}
+	else{
+		parent.history.back();
+	}
+}
+
+I = new Array();
+I[0] = new Array();
+I[0][0] = '<img src="pisteuei hnmiv.gif" alt="pisteuei hnmiv.gif" width="320" height="40" border="0"></img>';
+I[0][1] = '<FONT SIZE -1>he trusts us';
+I[1] = new Array();
+I[1][0] = '<img src="episteuov soi.gif" alt="episteuov soi.gif" width="320" height="40" border="0"></img>';
+I[1][1] = '<FONT SIZE -1>I / they had faith in you';
+I[2] = new Array();
+I[2][0] = '<img src="posa dwra autwi dwsomev.gif" alt="posa dwra autwi dwsomev.gif" width="320" height="40" border="0"></img>';
+I[2][1] = '<FONT SIZE -1>how many gits will we give him?';
+I[3] = new Array();
+I[3][0] = '<img src="soi pisteusw.gif" alt="soi pisteusw.gif" width="320" height="40" border="0"></img>';
+I[3][1] = '<FONT SIZE -1>I will trust you (sg)';
+I[4] = new Array();
+I[4][0] = '<img src="ta emou dwra dwsw authi.gif" alt="ta emou dwra dwsw authi.gif" width="320" height="40" border="0"></img>';
+I[4][1] = '<FONT SIZE -1>I will give her my gifts';
+I[5] = new Array();
+I[5][0] = '<img src="dwsomev dwrov authi.gif" alt="dwsomev dwrov authi.gif" width="320" height="40" border="0"></img>';
+I[5][1] = '<FONT SIZE -1>we will give her a gift';
+I[6] = new Array();
+I[6][0] = '<img src="autais ou dwsete dwra.gif" alt="autais ou dwsete dwra.gif" width="320" height="40" border="0"></img>';
+I[6][1] = '<FONT SIZE -1>you (pl) will not give gifts to them (fem)';
+I[7] = new Array();
+I[7][0] = '<img src="pisteue autois.gif" alt="pisteue autois.gif" width="320" height="40" border="0"></img>';
+I[7][1] = '<FONT SIZE -1>have faith in them (fem)!';
+I[8] = new Array();
+I[8][0] = '<img src="ta hnmwv dwsomen humiv.gif" alt="ta hnmwv dwsomen humiv.gif" width="320" height="40" border="0"></img>';
+I[8][1] = '<FONT SIZE -1>we will give you (pl) our possessions';
+I[9] = new Array();
+I[9][0] = '<img src="pisteuomev autais.gif" alt="pisteuomev autais.gif" width="320" height="40" border="0"></img>';
+I[9][1] = '<FONT SIZE -1>we trust them (fem)';
+I[10] = new Array();
+I[10][0] = '<img src="pisteuomev autais.gif" alt="pisteuomev autais.gif" width="320" height="40" border="0"></img>';
+I[10][1] = '<FONT SIZE -1>we trust them (fem)';
+I[11] = new Array();
+I[11][0] = '<img src="tivi dwseis dwra.gif" alt="tivi dwseis dwra.gif" width="320" height="40" border="0"></img>';
+I[11][1] = '<FONT SIZE -1>to whom will you (sg) give gifts?';
+I[12] = new Array();
+I[12][0] = '<img src="kai emoi kai soi dwra estiv.gif" alt="kai emoi kai soi dwra estiv.gif" width="320" height="40" border="0"></img>';
+I[12][1] = '<FONT SIZE -1>both you (sg) and I have gifts';
+I[13] = new Array();
+I[13][0] = '<img src="episteues hnmiv.gif" alt="episteues hnmiv.gif" width="320" height="40" border="0"></img>';
+I[13][1] = '<FONT SIZE -1>you used to trust us';
+I[14] = new Array();
+I[14][0] = '<img src="ekhomev ta dwra humwv.gif" alt="ekhomev ta dwra humwv.gif" width="320" height="40" border="0"></img>';
+I[14][1] = '<FONT SIZE -1>we have your (= of you pl) gifts';
+
+
+function Shuffle(){
+	var Temp;
+	var Num;
+	for (var i=0; i<I.length; i++){
+		Num = Math.round(Math.random() * (I.length-1));
+		Temp = I[i];
+		I[i] = I[Num];
+		I[Num] = Temp;
+	}
+}
+
+function StartUp(){
+	Shuffle();
+	WriteFeedback(Instructions);
+	WriteOutput(TitleCode);
+}
+
+
+var Started = false;
+
+function DeleteItem(){
+	if ((I.length<1)||(Started == false)){
+		return;
+	}
+
+//Delete the current item
+	var DelItem = CurrItem;
+	if ((Stage == 1)&&(DelItem>0)){
+		DelItem--;
+	}
+
+	if (DelItem < I.length-1){
+		for (var i=DelItem; i<I.length-1; i++){
+			I[i] = I[i+1];
+		}
+	}
+	I.length = I.length-1;
+	Stage = 1;
+	ShowItem();
+}
+
+
+function ShowItem(){
+	if (I.length == 0){
+		WriteOutput(TitleCode);
+		Started = false;
+		return;
+	}
+	Started = true;
+	if (CurrItem >= I.length){
+		Shuffle();
+		CurrItem = 0;
+	}
+	var Output = TitleCode + '<tr>' + CellOpener + I[CurrItem][0] + CellCloser;
+	if (Stage == 1){
+		Output += CellOpener + '&nbsp;' + CellCloser;
+		Stage = 2;
+	}
+	else{
+		Output += CellOpener + I[CurrItem][1] + CellCloser;
+		Stage = 1;
+		CurrItem++;
+	}
+	Output += '</tr>';
+	WriteOutput(Output);
+}
+
+function WriteFeedback(Feedback) {
+	if (is.CRAPBrowser){Feedback=ResolveAllURLs(Feedback);}
+//Build the output string
+	var OutString = '';
+	OutString += '<html>';
+	OutString += '<body  background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">';
+	OutString += '<center><table border="0" cellpadding="5" cellspacing="1" width="85%">';
+	OutString += NavBar;
+	if (Feedback.length>0){
+		OutString += '<tr><td bgcolor="#bbbbee" align="center">'; 
+		OutString += '<font face="Geneva,Arial" size="-1" color="#000000">';
+		OutString += Feedback;
+		OutString += '</font></td></tr>'
+	}
+	OutString += FlashButton;
+	OutString += '</table></center></body></html>';
+//Write it to the frame
+	TopFrame.document.clear();
+	TopFrame.document.open();
+	TopFrame.document.write(OutString);
+	TopFrame.document.close();
+}
+
+function WriteOutput(Output) {
+	if (is.CRAPBrowser){Output=ResolveAllURLs(Output);}
+	BottomFrame.document.clear();
+	BottomFrame.document.open();
+	BottomFrame.document.writeln ('<html>');
+	BottomFrame.document.writeln ('<body  background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">');
+	BottomFrame.document.writeln ('<center><table border="0" cellpadding="5" cellspacing="1" width="85%">');
+	BottomFrame.document.writeln (Output);
+	BottomFrame.document.writeln ('</table></center></body></html>');
+	BottomFrame.document.close();
+}
+
+function ReplaceStuff(Token, Replacement, InString){
+	var i = InString.indexOf(Token);
+	var FirstBit = '';
+	var LastBit = '';
+	while (i>-1){
+		FirstBit = InString.substring(0, i);
+		LastBit = InString.substring(i + Token.length, InString.length);	
+		InString = FirstBit + Replacement + LastBit;
+		i = InString.indexOf(Token);
+	}
+	return InString;
+}
+
+function Blank(){
+	return '<html><body>&copy;Half-Baked Software. Loading...</body></html>';
+}
+
+
+//-->
+
+//]]>
+
+</script>
+
+
+</head>
+<!--<body>Fool those dumb ad-inserting ISPs</body>-->
+
+<!--For full XHTML 1.0 compatibility, remove the border and framespacing attributes.
+These are required for proper display in current browsers, but render the document incompatible. Then, you'll need to add the appropriate Document Type Declaration; use
+the W3C XHTML 1 frameset DTD.-->
+
+<frameset rows="25%,*" framespacing="0" border="0" onload="StartUp()">
+	<frame src="javascript:parent.Blank()" frameborder="0" name="TopFrame"></frame>
+	<frame src="javascript:parent.Blank()" frameborder="0" name="BottomFrame"></frame>
+</frameset>
+
+</html>
